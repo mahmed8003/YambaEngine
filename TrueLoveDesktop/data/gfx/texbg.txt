@@ -1,0 +1,2 @@
+background_01 = 0 0 960 640
+HUD copy = 961 0 800 480
