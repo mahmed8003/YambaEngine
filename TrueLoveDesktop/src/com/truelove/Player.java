@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.engine.PhysicsFactory;
+import com.engine.PhysicsUtils;
 import com.engine.Settings;
 import com.engine.Utility;
 import com.engine.entity.AnimatedSprite;
@@ -59,9 +59,9 @@ public class Player extends Actor implements AnimationEventListener {
 		girlPlayer.setFrameTime(0.1f);
 		girlPlayer.registerListener(this);
 		
-		FixtureDef def = PhysicsFactory.createFixtureDef(1, 0.5f, 0.5f);
-		boyBody = PhysicsFactory.createBoxBody(world, boyPlayer, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
-		girlBody = PhysicsFactory.createBoxBody(world, girlPlayer, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
+		FixtureDef def = PhysicsUtils.createFixtureDef(1, 0.5f, 0.5f);
+		boyBody = PhysicsUtils.createBoxBody(world, boyPlayer, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
+		girlBody = PhysicsUtils.createBoxBody(world, girlPlayer, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
 		
 		//boyBody.setUserData(userData);
 		currentSelection = boyPlayer;

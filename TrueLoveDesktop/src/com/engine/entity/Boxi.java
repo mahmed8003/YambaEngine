@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.engine.PhysicsFactory;
+import com.engine.PhysicsUtils;
 import com.engine.Settings;
 import com.engine.Utility;
 import com.truelove.Assets;
@@ -47,9 +47,9 @@ public class Boxi extends BasicEntity implements AnimationEventListener {
 		
 		initBoxiEntity(boxSprite);
 		
-		final FixtureDef def = PhysicsFactory.createFixtureDef(1.0f, 0.2f, 1.0f);
-		boxBody = PhysicsFactory.createBoxBody(world, boxSprite, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
-		circleBody = PhysicsFactory.createCircleBody(world, circleSprite, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
+		final FixtureDef def = PhysicsUtils.createFixtureDef(1.0f, 0.2f, 1.0f);
+		boxBody = PhysicsUtils.createBoxBody(world, boxSprite, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
+		circleBody = PhysicsUtils.createCircleBody(world, circleSprite, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
 		
 		if(state == BOX) {
 			body = boxBody;
@@ -74,10 +74,10 @@ public class Boxi extends BasicEntity implements AnimationEventListener {
 	public void act(float delta) {
 		
 		if(state == BOX) {
-			Utility.updateSprite(boxSprite, boxBody, true, true);
+			PhysicsUtils.updateEntity(boxSprite, boxBody, true, true);
 			updateBoxiEntity(boxSprite);
 		}else{
-			Utility.updateSprite(circleSprite, circleBody, true, true);
+			PhysicsUtils.updateEntity(circleSprite, circleBody, true, true);
 			updateBoxiEntity(circleSprite);
 		}
 		

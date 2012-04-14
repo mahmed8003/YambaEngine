@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actors.Image;
 import com.engine.GameScreen;
-import com.engine.PhysicsFactory;
+import com.engine.PhysicsUtils;
 import com.engine.ScreenManager;
 import com.engine.Settings;
 import com.engine.Truck;
@@ -68,10 +68,10 @@ public class GamePlayScreen extends GameScreen implements
 
 		this.initPhysicsWorld(new Vector2(0, -20), true, 4, 4);
 
-		FixtureDef def = PhysicsFactory.createFixtureDef(1, 0.2f, 1.0f);
+		FixtureDef def = PhysicsUtils.createFixtureDef(1, 0.2f, 1.0f);
 		Rectangle r = new Rectangle(0, 0, 10000, 5);
-		Body body = PhysicsFactory.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
-		Body body2 = PhysicsFactory.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
+		Body body = PhysicsUtils.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
+		Body body2 = PhysicsUtils.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
 		body2.setTransform(100, 10, 15 * MathUtils.degreesToRadians);
 
 		mPlayer = new Player(getWorld());

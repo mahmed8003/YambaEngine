@@ -2,6 +2,7 @@ package com.engine;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -12,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.engine.entity.BasicEntity;
 
-public class PhysicsFactory {
+public class PhysicsUtils {
 
 	public static Body createCircleBody(final World phyWorld, final BasicEntity entity, final BodyType bodyType, final FixtureDef fixtureDef, final float pixelToMeterRatio) {
 		final BodyDef circleBodyDef = new BodyDef();
@@ -98,7 +99,7 @@ public class PhysicsFactory {
 	
 	
 	public static FixtureDef createFixtureDef(final float density, final float elasticity, final float friction) {
-		return PhysicsFactory.createFixtureDef(density, elasticity, friction, false);
+		return PhysicsUtils.createFixtureDef(density, elasticity, friction, false);
 	}
 
 	public static FixtureDef createFixtureDef(final float density, final float elasticity, final float friction, final boolean sensor) {
@@ -121,6 +122,53 @@ public class PhysicsFactory {
 		filter.maskBits = maskBits;
 		filter.groupIndex = groupIndex;
 		return fixtureDef;
+	}
+	
+	public static void updateBody(Body body, BasicEntity entity, boolean posUpdate, boolean rotUpdate) {
+
+		final float ptmRatio = Settings.PIXEL_TO_METER_RATIO;
+
+		Vector2 pos = body.getPosition();
+		float angle = body.getAngle();
+
+		// update position
+		if(posUpdate) {
+			float x = entity.getX();
+			float y = entity.getY();
+
+			float ShapeHalfBaseWidth = entity.getWidth() * 0.5f;
+			float ShapeHalfBaseHeight = entity.getHeight() * 0.5f;
+
+			pos.x = x / ptmRatio + ShapeHalfBaseWidth;
+			pos.y = y / ptmRatio + ShapeHalfBaseHeight;
+		}
+
+		// update rotation
+		if(rotUpdate) {
+			angle = MathUtils.degreesToRadians * entity.getRotation();
+		}
+
+		body.setTransform(pos, angle);
+	}
+
+	public static void updateEntity(BasicEntity entity, Body body, boolean posUpdate, boolean rotUpdate){
+
+		final float ptmRatio = Settings.PIXEL_TO_METER_RATIO;
+
+		// update position
+		if(posUpdate) {
+			final Vector2 pos = body.getPosition();
+			float ShapeHalfBaseWidth = entity.getWidth() * 0.5f;
+			float ShapeHalfBaseHeight = entity.getHeight() * 0.5f;
+			entity.setPosition(pos.x * ptmRatio - ShapeHalfBaseWidth, 
+					pos.y * ptmRatio - ShapeHalfBaseHeight);
+		}
+
+		// update rotation
+		if(rotUpdate) {
+			final float angle = body.getAngle();
+			entity.setRotation(MathUtils.radiansToDegrees * angle);
+		}
 	}
 
 }
