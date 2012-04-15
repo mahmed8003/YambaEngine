@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.engine.entity.BasicEntity;
 
-public class PhysicsUtils {
+public class PhysicsFactory {
 
 	public static Body createCircleBody(final World phyWorld, final BasicEntity entity, final BodyType bodyType, final FixtureDef fixtureDef, final float pixelToMeterRatio) {
 		final BodyDef circleBodyDef = new BodyDef();
@@ -99,7 +99,7 @@ public class PhysicsUtils {
 	
 	
 	public static FixtureDef createFixtureDef(final float density, final float elasticity, final float friction) {
-		return PhysicsUtils.createFixtureDef(density, elasticity, friction, false);
+		return PhysicsFactory.createFixtureDef(density, elasticity, friction, false);
 	}
 
 	public static FixtureDef createFixtureDef(final float density, final float elasticity, final float friction, final boolean sensor) {

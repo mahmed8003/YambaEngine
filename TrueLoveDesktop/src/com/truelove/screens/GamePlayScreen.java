@@ -18,7 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actors.Image;
 import com.engine.GameScreen;
-import com.engine.PhysicsUtils;
+import com.engine.PhysicsEditorShapeLibrary;
+import com.engine.PhysicsFactory;
 import com.engine.ScreenManager;
 import com.engine.Settings;
 import com.engine.Truck;
@@ -68,10 +69,10 @@ public class GamePlayScreen extends GameScreen implements
 
 		this.initPhysicsWorld(new Vector2(0, -20), true, 4, 4);
 
-		FixtureDef def = PhysicsUtils.createFixtureDef(1, 0.2f, 1.0f);
+		FixtureDef def = PhysicsFactory.createFixtureDef(1, 0.2f, 1.0f);
 		Rectangle r = new Rectangle(0, 0, 10000, 5);
-		Body body = PhysicsUtils.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
-		Body body2 = PhysicsUtils.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
+		Body body = PhysicsFactory.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
+		Body body2 = PhysicsFactory.createBoxBody(getWorld(), r, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
 		body2.setTransform(100, 10, 15 * MathUtils.degreesToRadians);
 
 		mPlayer = new Player(getWorld());
@@ -167,6 +168,11 @@ public class GamePlayScreen extends GameScreen implements
 		//mStage.addActor(mTruck);
 		mBoxi = new Boxi(getWorld(), "myBox", 700, 400, null, Boxi.BOX, Boxi.CONVERTIBLE);
 		mStage.addActor(mBoxi);
+		
+		PhysicsEditorShapeLibrary library = new PhysicsEditorShapeLibrary(Settings.PIXEL_TO_METER_RATIO);
+		library.open("data/level/shapes.xml");
+		library.createBody("boxi", mBoxi, getWorld());
+		
 		box2dDebugRenderer = new Box2DDebugRenderer(true, true, false); 
 	}
 	

@@ -8,17 +8,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public class ScreenAssets {
-	public final HashMap<String, TextureRegion> mTextureRegions;
-	public final ArrayList<Texture> mTextures;
+	
+	private final HashMap<String, TextureRegion> mTextureRegions;
+	private final ArrayList<Texture> mTextures;
+	private final HashMap<String, Body> mBodies;
 	
 	public ScreenAssets() {
 		mTextureRegions = new HashMap<String, TextureRegion>();
 		mTextures = new ArrayList<Texture>();
+		mBodies = new HashMap<String, Body>();
 	}
 	
-	public void addRegion(String id, TextureRegion region) {
+	public void addTextureRegion(String id, TextureRegion region) {
 		mTextureRegions.put(id, region);
 	}
 	
@@ -26,7 +30,7 @@ public class ScreenAssets {
 		return mTextureRegions.get(id);
 	}
 	
-	public HashMap<String, TextureRegion> getRegions() {
+	public HashMap<String, TextureRegion> getTextureRegions() {
 		return mTextureRegions;
 	}
 	
@@ -61,12 +65,20 @@ public class ScreenAssets {
 		
 	}
 	
+	public void addBody(String id, Body body) {
+		mBodies.put(id, body);
+	}
+	
+	public Body getBody(String id) {
+		return mBodies.get(id);
+	}
+	
 	public void dispose() {
 		for(Texture texture : mTextures) {
 			texture.dispose();
 		}
-		
 		mTextureRegions.clear();
 		mTextures.clear();
+		mBodies.clear();
 	}
 }

@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.engine.PhysicsUtils;
+import com.engine.PhysicsFactory;
 import com.engine.Settings;
 import com.engine.Utility;
 
@@ -36,8 +36,8 @@ public class BoyPlayer extends AnimatedSprite implements AnimationEventListener 
 		this.setPosition(200, 500);
 		this.registerListener(this);
 		
-		FixtureDef def = PhysicsUtils.createFixtureDef(10, 0.5f, 0.5f);
-		body = PhysicsUtils.createBoxBody(world, this, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
+		FixtureDef def = PhysicsFactory.createFixtureDef(10, 0.5f, 0.5f);
+		body = PhysicsFactory.createBoxBody(world, this, BodyType.DynamicBody, def, Settings.PIXEL_TO_METER_RATIO);
 	}
 
 	@Override
