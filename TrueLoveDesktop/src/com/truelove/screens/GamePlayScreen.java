@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actors.Image;
+import com.engine.PhysicsEditorLoader;
 import com.engine.GameScreen;
 import com.engine.PhysicsEditorShapeLibrary;
 import com.engine.PhysicsFactory;
@@ -119,6 +120,7 @@ public class GamePlayScreen extends GameScreen implements
 		 */
 		getAssets().loadTextureRegions("data/gfx/my_art.png", "data/gfx/my_art.txt");
 		getAssets().loadTextureRegions("data/gfx/texbg.png", "data/gfx/texbg.txt");
+		getAssets().loadTextureRegions("data/gfx/path_texture.png", "data/gfx/path_texture.txt");
 		
 		
 		/*
@@ -166,12 +168,22 @@ public class GamePlayScreen extends GameScreen implements
 		//mTruck.initCarPosition(400, 200);
 		//mTruck.init();
 		//mStage.addActor(mTruck);
-		mBoxi = new Boxi(getWorld(), "myBox", 700, 400, null, Boxi.BOX, Boxi.CONVERTIBLE);
+		mBoxi = new Boxi(getWorld(), "myBox", 700, 400, null, Boxi.CIRCLE, Boxi.CONVERTIBLE);
 		mStage.addActor(mBoxi);
 		
-		PhysicsEditorShapeLibrary library = new PhysicsEditorShapeLibrary(Settings.PIXEL_TO_METER_RATIO);
+		Sprite sprite = new Sprite("", 100, 200, getAssets().getTextureRegion("p1"));
+		//sprite.rotation = 10;
+		//sprite.setScale(1.5f, 1.5f);
+		mStage.addActor(sprite);
+		
+		/*PhysicsEditorShapeLibrary library = new PhysicsEditorShapeLibrary(Settings.PIXEL_TO_METER_RATIO);
 		library.open("data/level/shapes.xml");
-		library.createBody("boxi", mBoxi, getWorld());
+		library.createBody("p1", sprite, getWorld());*/
+		
+		PhysicsEditorLoader atlas = new PhysicsEditorLoader("data/level/pytest", getWorld());
+		FixtureDef def = PhysicsFactory.createFixtureDef(1.0f, 0.1f, 2.0f);
+		Body body = atlas.createBody("p1", sprite, BodyType.StaticBody, def, Settings.PIXEL_TO_METER_RATIO);
+		//atlas.createFixtures(body, "p1.png", sprite.getWidthScaled(), sprite.getHeightScaled(), def);
 		
 		box2dDebugRenderer = new Box2DDebugRenderer(true, true, false); 
 	}

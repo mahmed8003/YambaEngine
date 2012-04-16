@@ -1,6 +1,5 @@
 package com.engine.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.engine.PhysicsFactory;
 import com.engine.Settings;
-import com.engine.Utility;
 import com.truelove.Assets;
 
 public class Boxi extends BasicEntity implements AnimationEventListener {
@@ -80,10 +78,6 @@ public class Boxi extends BasicEntity implements AnimationEventListener {
 			PhysicsFactory.updateEntity(circleSprite, circleBody, true, true);
 			updateBoxiEntity(circleSprite);
 		}
-		
-		//Gdx.app.log("BOX ", Float.toString(boxBody.getLinearVelocity().len()));
-		//Gdx.app.log("Cir ", Float.toString(circleBody.getLinearVelocity().len()));
-		Gdx.app.log("Current ", Float.toString(body.getLinearVelocity().angle()));
 		
 		super.act(delta);
 	}

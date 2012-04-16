@@ -19,11 +19,9 @@ public class PhysicsFactory {
 		final BodyDef circleBodyDef = new BodyDef();
 		circleBodyDef.type = bodyType;
 
-		final float halfWidth = entity.getWidthScaled() * 0.5f / pixelToMeterRatio;
-		final float halfHeight = entity.getHeightScaled() * 0.5f / pixelToMeterRatio;
 		
-		circleBodyDef.position.x = entity.x / pixelToMeterRatio  + halfWidth;
-		circleBodyDef.position.y = entity.y / pixelToMeterRatio  + halfHeight;
+		circleBodyDef.position.x = (entity.x / pixelToMeterRatio) + (entity.getWidth() * 0.5f / pixelToMeterRatio);
+		circleBodyDef.position.y = (entity.y / pixelToMeterRatio) + (entity.getHeight() * 0.5f / pixelToMeterRatio);
 
 		circleBodyDef.angle = entity.rotation * MathUtils.degreesToRadians;
 
@@ -32,6 +30,9 @@ public class PhysicsFactory {
 		final CircleShape circlePoly = new CircleShape();
 		fixtureDef.shape = circlePoly;
 
+		final float halfWidth = entity.getWidthScaled() * 0.5f / pixelToMeterRatio;
+		final float halfHeight = entity.getHeightScaled() * 0.5f / pixelToMeterRatio;
+		
 		final float radius = halfWidth;
 		circlePoly.setRadius(radius);
 
@@ -45,18 +46,16 @@ public class PhysicsFactory {
 	public static Body createBoxBody(final World phyWorld, final BasicEntity entity, final BodyType bodyType, final FixtureDef fixtureDef, final float pixelToMeterRatio) {
 		final BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
-		
-		final float halfWidth = entity.getWidthScaled() * 0.5f / pixelToMeterRatio;
-		final float halfHeight = entity.getHeightScaled() * 0.5f / pixelToMeterRatio;
 
-		boxBodyDef.position.x = entity.x / pixelToMeterRatio + halfWidth;
-		boxBodyDef.position.y = entity.y / pixelToMeterRatio + halfHeight;
+		boxBodyDef.position.x = (entity.x / pixelToMeterRatio) + (entity.getWidth() * 0.5f / pixelToMeterRatio);
+		boxBodyDef.position.y = (entity.y / pixelToMeterRatio) + (entity.getHeight() * 0.5f / pixelToMeterRatio);
 
 		final Body boxBody = phyWorld.createBody(boxBodyDef);
 
 		final PolygonShape boxPoly = new PolygonShape();
 
-		
+		final float halfWidth = entity.getWidthScaled() * 0.5f / pixelToMeterRatio;
+		final float halfHeight = entity.getHeightScaled() * 0.5f / pixelToMeterRatio;
 
 		boxPoly.setAsBox(halfWidth, halfHeight);
 		fixtureDef.shape = boxPoly;
@@ -75,8 +74,8 @@ public class PhysicsFactory {
 		final BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = bodyType;
 
-		boxBodyDef.position.x = entity.x / pixelToMeterRatio;
-		boxBodyDef.position.y = entity.y / pixelToMeterRatio;
+		boxBodyDef.position.x = (entity.x / pixelToMeterRatio) + (entity.getWidth() * 0.5f / pixelToMeterRatio);
+		boxBodyDef.position.y = (entity.y / pixelToMeterRatio) + (entity.getHeight() * 0.5f / pixelToMeterRatio);
 
 		final Body boxBody = phyWorld.createBody(boxBodyDef);
 
