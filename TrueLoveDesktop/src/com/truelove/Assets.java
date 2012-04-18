@@ -11,16 +11,21 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.engine.ScreenAssets;
 import com.engine.Settings;
 
 public class Assets {
 	
 	private static Assets mInstance = null;
+	public final ScreenAssets assets;
+	
+	public TextureRegion backgroundRegion;
+	public TextureRegion loadingRegion;
 	
 	private HashMap<String, TextureRegion> mTextureRegions;
 	private ArrayList<Texture> mTextures;
 	
-	private Sound mClickSound = null;
+	public Sound mClickSound = null;
 	private Music mBackgroundMusic = null;
 	
 	public static final float VIRTUAL_WIDTH = 480.0f;
@@ -192,6 +197,19 @@ public class Assets {
 		mTextures.clear();
 	}
 	
+	public void initCommonResources() {
+		loadAudioResources();
+		
+		/* load common resources will use all over the screens */
+		assets.loadTextureRegions("data/gfx/background_screen.png", "data/gfx/background_screen.txt");
+		assets.loadTextureRegions("data/gfx/buttons_texture.png", "data/gfx/buttons_texture.txt");
+		
+		/* some common sprite */
+		backgroundRegion = assets.getTextureRegion("background");
+		loadingRegion = assets.getTextureRegion("background");
+		
+	}
+	
 	public final static Assets getInstance() {
 		if(mInstance == null) {
 			mInstance = new Assets();
@@ -202,5 +220,6 @@ public class Assets {
 	private Assets() {
 		mTextureRegions = new HashMap<String, TextureRegion>();
 		mTextures = new ArrayList<Texture>();
+		assets = new ScreenAssets();
 	}
 }

@@ -1,10 +1,11 @@
 package com.engine;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-public abstract class GameScreen implements Screen {
+public abstract class GameScreen implements Screen, InputProcessor {
 	
 	private final ScreenManager mScreenMgr;
 	private final ScreenAssets mAssets;
@@ -93,6 +94,48 @@ public abstract class GameScreen implements Screen {
 	@Override
 	public void show() {
 	}
+	
+	
+	@Override
+	public boolean keyDown(int keyCode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char keyCode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keyCode) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int arg0) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int x, int y, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean touchMoved(int x, int y) {
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		return false;
+	}
+
 
 	/**
 	 * Get Screen Manager

@@ -1,0 +1,13 @@
+credits_down = 0 72 254 60
+credits_up = 0 133 254 60
+exit_down = 0 194 254 60
+exit_up = 0 255 254 60
+facebook_icon = 320 194 60 60
+game_title = 0 0 649 71
+level_down = 0 316 254 60
+level_up = 255 72 254 60
+mute_icon = 255 194 64 64
+start_down = 0 377 254 60
+start_up = 255 133 254 60
+twitter_icon = 320 255 60 60
+unmute_icon = 255 259 64 64

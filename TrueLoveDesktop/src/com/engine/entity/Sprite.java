@@ -8,19 +8,20 @@ public class Sprite extends BasicEntity {
 	
 	TextureRegion region;
 	
+	public Sprite(String name, TextureRegion region) {
+		this(name, 0, 0, region);
+	}
+	
 	public Sprite(String name, float x, float y, TextureRegion region) {
 		super(name);
 		setPosition(x, y);
-		width = region.getRegionWidth();
-		height = region.getRegionHeight();
+		setWidth(region.getRegionWidth());
+		setHeight(region.getRegionHeight());
 		setScale(1, 1);
 		setOrigin(width * 0.5f, height * 0.5f);
 		this.region = region;
 	}
 	
-	public Sprite(String name, TextureRegion region) {
-		this(name, 0, 0, region);
-	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {

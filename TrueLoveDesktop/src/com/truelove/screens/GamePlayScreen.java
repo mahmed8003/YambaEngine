@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,26 +15,21 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actors.Image;
-import com.engine.PhysicsEditorLoader;
 import com.engine.GameScreen;
-import com.engine.PhysicsEditorShapeLibrary;
+import com.engine.PhysicsEditorLoader;
 import com.engine.PhysicsFactory;
 import com.engine.ScreenManager;
 import com.engine.Settings;
 import com.engine.Truck;
-import com.engine.entity.AnimatedButton;
+import com.engine.entity.PushButton;
 import com.engine.entity.BasicEntity;
 import com.engine.entity.Boxi;
 import com.engine.entity.BoyPlayer;
 import com.engine.entity.Sprite;
-import com.nitro.level.GameObject;
-import com.nitro.level.Layer;
-import com.nitro.level.Level;
 import com.truelove.Assets;
 import com.truelove.Player;
 
-public class GamePlayScreen extends GameScreen implements
-		InputProcessor {
+public class GamePlayScreen extends GameScreen {
 
 	private Assets mAssets;
 
@@ -47,7 +40,7 @@ public class GamePlayScreen extends GameScreen implements
 	private BasicEntity mGameObject;
 	private BoyPlayer mBoyPlayer;
 	
-	private AnimatedButton btn;
+	private PushButton btn;
 	private Truck mTruck;
 	
 	private Boxi mBoxi;
@@ -62,10 +55,8 @@ public class GamePlayScreen extends GameScreen implements
 		mAssets.playBackgroundMusic();
 		mAssets.loadHudResources();
 
-		mStage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
-				false);
-		mHud = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
-				false);
+		mStage = new Stage(getScreenMgr().getVirtualWidth(), getScreenMgr().getVirtualHeight(), true);
+		mHud = new Stage(getScreenMgr().getVirtualWidth(), getScreenMgr().getVirtualHeight(), true);
 
 
 		this.initPhysicsWorld(new Vector2(0, -20), true, 4, 4);
@@ -149,16 +140,19 @@ public class GamePlayScreen extends GameScreen implements
 		}*/
 		// mStage.getCamera().translate(100, 10, 0);
 
-		/* setting up input processor class */
-		Gdx.input.setInputProcessor(this);
-
 	}
 
 	@Override
 	public void show() {
+		/* setting up background */
+		Sprite sprite;
+		sprite = new Sprite("background", mAssets.backgroundRegion);
+		mStage.addActor(sprite);
+		
+		
 		mPlayer.walkSpeed(1);
 		mStage.addActor(mPlayer);
-		btn = new AnimatedButton("Test Button", mAssets.animButton);
+		btn = new PushButton("Test Button", mAssets.animButton);
 		btn.setPosition(180, 180);
 		mHud.addActor(btn);
 		mStage.addActor(mBoyPlayer);
@@ -171,7 +165,7 @@ public class GamePlayScreen extends GameScreen implements
 		mBoxi = new Boxi(getWorld(), "myBox", 700, 400, null, Boxi.CIRCLE, Boxi.CONVERTIBLE);
 		mStage.addActor(mBoxi);
 		
-		Sprite sprite = new Sprite("", 100, 200, getAssets().getTextureRegion("p1"));
+		sprite = new Sprite("", 100, 200, getAssets().getTextureRegion("p1"));
 		//sprite.rotation = 10;
 		//sprite.setScale(1.5f, 1.5f);
 		mStage.addActor(sprite);
@@ -191,11 +185,6 @@ public class GamePlayScreen extends GameScreen implements
 
 	@Override
 	public void render(float delta) {
-		
-		GL10 gl = Gdx.graphics.getGL10();
-		gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		box2dDebugRenderer.render(getWorld(), mStage.getCamera().combined);
 
@@ -247,11 +236,6 @@ public class GamePlayScreen extends GameScreen implements
 		return false;
 	}
 
-	@Override
-	public boolean keyTyped(char keyCode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean keyUp(int keyCode) {
@@ -262,12 +246,6 @@ public class GamePlayScreen extends GameScreen implements
 		if (keyCode == Input.Keys.L) {
 			//mTruck.setRightPressed(false);
 		}
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int arg0) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -297,18 +275,6 @@ public class GamePlayScreen extends GameScreen implements
 			}
 		}
 		return touched;
-	}
-
-	@Override
-	public boolean touchDragged(int x, int y, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchMoved(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
