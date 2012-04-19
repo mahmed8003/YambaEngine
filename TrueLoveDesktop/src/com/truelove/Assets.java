@@ -207,7 +207,8 @@ public class Assets {
 		/* some common sprite */
 		backgroundRegion = assets.getTextureRegion("background");
 		loadingRegion = assets.getTextureRegion("background");
-		
+	
+		loadBoxyResources();
 	}
 	
 	public final static Assets getInstance() {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+<textures>
+	<texture tex_file="data/levels/level_01/level.png" reg_file="data/levels/level_01/level.txt" />
+</textures>
+	<physics file="data/levels/level_01/level.phy" />
+	
+	<platforms>
+		<platform name="level" x="0" y="0" rotation="0" scale_x="1" scale_y="1" fixture_id="f1" body_type="static" />
+	</platforms>
+	
+	<boxies>
+		<boxi name="ruda1" x="400" y="400" rotation="0" scale_x="1" scale_y="1" color="green" convertable="yes" face="box" fixture_id="f1" />
+		<boxi name="ruda2" x="180" y="350" rotation="0" scale_x="1" scale_y="1" color="green" convertable="no" face="circle" fixture_id="f1" />
+	</boxies>
+	
+	<bombs>
+	</bombs>
+	
+	<fixtures>
+		<fixture id="f1" density="2.0" elasticity="0.1" friction="0.5" />
+		<fixture id="f2" density="3.0" elasticity="0.2" friction="0.5" />
+		<fixture id="f3" density="2.0" elasticity="0.1" friction="2" />
+	</fixtures>
+	
+</level>
